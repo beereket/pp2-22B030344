@@ -3,6 +3,7 @@ def sqaure(a, b):
         yield i ** 2
 
 a, b = input().split()
+
 a = int(a)
 b = int(b)
 
