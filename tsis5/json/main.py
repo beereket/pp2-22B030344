@@ -9,6 +9,7 @@ print(
     "-------------------------------------------------- --------------------  ------  ------")
 
 imdata = dictdata["imdata"]
+
 for i in imdata:
     dn = i["l1PhysIf"]["attributes"]["dn"]
     des = i["l1PhysIf"]["attributes"]["descr"]
