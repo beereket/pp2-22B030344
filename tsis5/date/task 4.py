@@ -1,3 +1,4 @@
+
 from datetime import datetime
 
 date_str1 = input("Enter the first date in YYYY-MM-DD HH:MM:SS format: ")
