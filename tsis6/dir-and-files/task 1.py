@@ -1,5 +1,4 @@
 import os
-
 s = str(input("Path: "))
 
 print("directories")
