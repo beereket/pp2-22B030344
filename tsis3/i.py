@@ -85,6 +85,7 @@ def permutations(data, index=0):
             permutations(data, index + 1)
             data[index], data[i] = data[i], data[index]
 
+            
 def reverse_sentence(sentence):
     words = sentence.split()
     return " ".join(reversed(words))
