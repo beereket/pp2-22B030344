@@ -7,6 +7,7 @@ car =	{
 }
 print(car.get("model"))
 
+
 #Exercise 2
 
 car =	{
