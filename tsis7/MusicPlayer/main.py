@@ -21,7 +21,7 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-
+    
     key = pygame.key.get_pressed()
     if key[pygame.K_SPACE]:
         if isPlaying:
