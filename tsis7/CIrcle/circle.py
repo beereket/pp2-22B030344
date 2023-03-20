@@ -1,11 +1,12 @@
 import pygame, sys
 
-h, w = 1280, 720
-display = pygame.display.set_mode((500, 500))
+H, W = 700, 700
+display = pygame.display.set_mode((H, W))
 pygame.display.set_caption('Circle')
 
 FPS = 60
 x, y = 100, 100
+R = 25
 step = 20
 
 clock = pygame.time.Clock()
@@ -18,15 +19,15 @@ while True:
             sys.exit()
 
     key = pygame.key.get_pressed()
-    if key[pygame.K_UP] and y > 25:
+    if key[pygame.K_UP] and y > R:
         y -= step
-    if key[pygame.K_DOWN] and y < 475:
+    if key[pygame.K_DOWN] and y < H - R:
         y += step
-    if key[pygame.K_RIGHT] and x < 475:
+    if key[pygame.K_RIGHT] and x < W - R:
         x += step
-    if key[pygame.K_LEFT] and x > 25:
+    if key[pygame.K_LEFT] and x > R:
         x -= step
 
 
-    pygame.draw.circle(display, 'red', (x, y), 25)
+    pygame.draw.circle(display, 'red', (x, y), R)
     pygame.display.update()
