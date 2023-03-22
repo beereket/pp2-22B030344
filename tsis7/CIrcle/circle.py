@@ -1,7 +1,7 @@
 import pygame, sys
 
 H, W = 700, 700
-display = pygame.display.set_mode((H, W))
+display = pygame.display.set_mode((H, W), pygame.RESIZABLE)
 pygame.display.set_caption('Circle')
 
 FPS = 60
@@ -14,18 +14,21 @@ clock = pygame.time.Clock()
 while True:
     clock.tick(FPS)
     display.fill((255, 255, 255))
+    
+    rect = display.get_rect() 
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
 
     key = pygame.key.get_pressed()
-    if key[pygame.K_UP] and y > R:
+    if key[pygame.K_UP] and y > rect.top + R:
         y -= step
-    if key[pygame.K_DOWN] and y < H - R:
+    if key[pygame.K_DOWN] and y < rect.bottom - R:
         y += step
-    if key[pygame.K_RIGHT] and x < W - R:
+    if key[pygame.K_RIGHT] and x < rect.right - R:
         x += step
-    if key[pygame.K_LEFT] and x > R:
+    if key[pygame.K_LEFT] and x > rect.left + R:
         x -= step
 
 
