@@ -34,7 +34,7 @@ while True:
     if key[pygame.K_n]:
         index += 1
         if index == len(mus):
-            index == 0
+            index = 0
 
         pygame.mixer.music.load(path.format(mus[index]))
         pygame.mixer.music.play()
