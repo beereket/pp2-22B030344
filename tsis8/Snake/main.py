@@ -6,6 +6,7 @@ pygame.init()
 screen = pygame.display.set_mode((700, 700), RESIZABLE)
 screenrect = screen.get_rect()
 
+RED = 'red'
 
 #CONST
 block = 25
@@ -47,6 +48,13 @@ class Snake():
                     block,
                 )
             )
+
+    def game_over(self):
+        cordinate0 = self.body[0]
+        for cordinate in self.body[1:]:
+            if cordinate.x == cordinate0.x:
+                if cordinate.y == cordinate0.y:
+                    return True
 
     def move(self, dx, dy, size=block):
         for idx in range(len(self.body) - 1, 0, -1):
@@ -99,23 +107,24 @@ while True:
     snake = Snake()
     food = Food(5, 5)
     dx, dy = 0, 0
-
+    Score = 0
     while True:
         screen.fill('black')
-
+        score = pygame.font.SysFont("arial", 35).render("You Score: " + str(Score), True, 'white')
+        screen.blit(score, (10, 10))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    dx, dy = 0, -1
-                elif event.key == pygame.K_DOWN:
-                    dx, dy = 0, +1
-                elif event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_RIGHT and (dx != -1 or dy != 0):
                     dx, dy = 1, 0
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_LEFT and (dx != 1 or dy != 0):
                     dx, dy = -1, 0
+                elif event.key == pygame.K_UP and (dx != 0 or dy != 1):
+                    dx, dy = 0, -1
+                elif event.key == pygame.K_DOWN and (dx != 0 or dy != -1):
+                    dx, dy = 0, 1
 
         snake.move(dx, dy)
         if snake.check_collision(food):
@@ -124,9 +133,14 @@ while True:
             )
             food.location.x = random.randint(0, screenrect.right // block - 1)
             food.location.y = random.randint(0, screenrect.bottom // block - 1)
+            Score += 1
+
 
         snake.draw()
         food.draw()
         draw_grid()
+        if snake.game_over() and Score != 0:
+            sys.exit()
+
         pygame.display.flip()
         FPS.tick(5)
