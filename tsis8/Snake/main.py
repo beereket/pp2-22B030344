@@ -154,6 +154,7 @@ while True:
         snake.draw()
         food.draw()
         draw_grid()
+        
         if snake.game_over() and Score != 0:
             sys.exit()
 
