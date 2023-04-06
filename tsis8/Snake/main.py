@@ -107,11 +107,21 @@ while True:
     snake = Snake()
     food = Food(5, 5)
     dx, dy = 0, 0
+
     Score = 0
+    DIFFICULITY = 5
+    LEVEL = 0
+    WAS = False #To avoid lvl problem
     while True:
         screen.fill('black')
+
+        #Score
         score = pygame.font.SysFont("arial", 35).render("You Score: " + str(Score), True, 'white')
         screen.blit(score, (10, 10))
+
+        #Level
+        level = pygame.font.SysFont("arial", 35).render("You Level: " + str(LEVEL), True, 'white')
+        screen.blit(level, (screenrect.centerx - 35, screenrect.top + 10))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -134,7 +144,12 @@ while True:
             food.location.x = random.randint(0, screenrect.right // block - 1)
             food.location.y = random.randint(0, screenrect.bottom // block - 1)
             Score += 1
-
+        if Score % 4 != 0:
+            WAS = True
+        if Score % 4 == 0 and Score != 0 and WAS:
+            LEVEL += 1
+            DIFFICULITY += 1
+            WAS = False
 
         snake.draw()
         food.draw()
@@ -143,4 +158,4 @@ while True:
             sys.exit()
 
         pygame.display.flip()
-        FPS.tick(5)
+        FPS.tick(DIFFICULITY)
