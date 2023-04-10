@@ -21,6 +21,24 @@ class Pen():
     def handle(self, mouse_pos):
         self.points.append(mouse_pos)
 
+
+def find_square_vertices(center_x, center_y, vertex_x, vertex_y):
+    # calculate the distance between the center and the vertex
+    dist = ((vertex_x - center_x) ** 2 + (vertex_y - center_y) ** 2) ** 0.5
+
+    # calculate the length of one edge
+    E = dist * (2 ** 0.5)
+
+    # calculate the angle between the center and the vertex
+    angle = math.atan2(center_y - vertex_y, vertex_x - center_x)
+
+    # calculate the coordinates of the other three vertices
+    V1 = (center_x + E / 2 * math.cos(angle - math.pi / 2), center_y - E / 2 * math.sin(angle - math.pi / 2))
+    V2 = (center_x + E / 2 * math.cos(angle), center_y - E / 2 * math.sin(angle))
+    V3 = (center_x + E / 2 * math.cos(angle + math.pi / 2), center_y - E / 2 * math.sin(angle + math.pi / 2))
+    V4 = (center_x + E / 2 * math.cos(angle + math.pi), center_y - E / 2 * math.sin(angle + math.pi))
+
+    return [V1, V2, V3, V4]
 def FindVerticesOfEquilateralTriangle(center, vertex):
     x0, y0 = center
     x, y = vertex
@@ -147,19 +165,10 @@ class Square():
         self.screen = screen
 
     def draw(self):
-        Distance = (sqrt((self.end_pos[1] - self.start_pos[1]) ** 2 + (self.end_pos[0] - self.start_pos[0]) ** 2))
-        a = Distance * sqrt(2)
-
-        start_pos_x = self.start_pos[0] - (a/2)
-        start_pos_y = self.start_pos[1] - (a/2)
-
-        pygame.draw.rect(
+        pygame.draw.polygon(
             self.screen,
             self.color,
-            (start_pos_x,
-            start_pos_y,
-            int(a),
-            int(a)),
+            find_square_vertices(self.start_pos[0], self.start_pos[1], self.end_pos[0], self.end_pos[1]),
             width = 5
         )
 
